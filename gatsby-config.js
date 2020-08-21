@@ -16,18 +16,6 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {
-      resolve: 'gatsby-source-graphql',
-      options: {
-        typeName: 'GitHub',
-        fieldName: 'github',
-        url: 'https://api.github.com/graphql',
-        headers: {
-          Authorization: 'bearer 9f1b9634a0456451f670dcc862a2335cef966fdc',
-        },
-        fetchOptions: {},
-      },
-    },
-    {
       resolve: 'gatsby-plugin-nprogress',
       options: {
         color: config.themeColor,

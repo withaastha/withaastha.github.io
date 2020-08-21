@@ -12,7 +12,6 @@ export default () => (
       name: '',
       email: '',
       mobile: '',
-      recaptcha: '',
       success: false,
     }}
     validationSchema={Yup.object().shape({
@@ -21,10 +20,8 @@ export default () => (
         .email('Invalid email')
         .required('Email field is required'),
       mobile: Yup.string().required('Mobile field is required'),
-      recaptcha: Yup.string().required('Robots are not welcome yet!'),
     })}
     onSubmit={async ({ name, email, mobile }, { setSubmitting, resetForm, setFieldValue }) => {
-      console.log('submitting');
       try {
         await axios({
           method: 'POST',
@@ -50,6 +47,7 @@ export default () => (
   >
     {({ values, touched, errors, setFieldValue, isSubmitting }) => (
       <Form>
+        <h1>Have questions? Let us contact you</h1>
         <InputField>
           <Input
             as={FastField}
@@ -83,7 +81,7 @@ export default () => (
             as={FastField}
             type="number"
             name="mobile"
-            placeholder="Mobile Number"
+            placeholder="Mobile Number*"
             error={touched.mobile && errors.mobile}
           />
           <ErrorMessage component={Error} name="mobile" />
@@ -102,17 +100,6 @@ export default () => (
           />
           <ErrorMessage component={Error} name="message" />
         </InputField> */}
-        {values.name && values.email && values.message && (
-          <InputField>
-            <FastField
-              component={Recaptcha}
-              sitekey="6LfC7sEZAAAAALmsKUewZS9J4l4LL9pghqbSs0Ec"
-              name="recaptcha"
-              onChange={value => setFieldValue('recaptcha', value)}
-            />
-            <ErrorMessage component={Error} name="recaptcha" />
-          </InputField>
-        )}
         {values.success && (
           <InputField>
             <Center>
@@ -120,6 +107,8 @@ export default () => (
             </Center>
           </InputField>
         )}
+
+        <h4>We will not spam you</h4>
         <Center>
           <div>
             <Button secondary type="submit" disabled={isSubmitting}>

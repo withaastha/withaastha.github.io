@@ -6,9 +6,8 @@ import { Container, Button } from 'components/common';
 import meditationBuilding from 'assets/illustrations/meditate-building.svg';
 import { Wrapper, IntroWrapper, Details, Thumbnail } from './styles';
 
-export const Intro = () => {
+export const Intro = ({ courseURL, specialText }) => {
   const { theme } = useContext(ThemeContext);
-
   return (
     <Wrapper>
       <Header />
@@ -16,8 +15,8 @@ export const Intro = () => {
         <Details theme={theme}>
           <h1>Hi There!</h1>
           <h4>I’m Aastha Kansal and I’m a life coach and faculty @ Art of Living!</h4>
-          <a href="https://aolt.in/491974" target="_blank" rel="noopener noreferrer">
-            <Button>Register for the upcoming Happiness Workshop!</Button>
+          <a href={courseURL} target="_blank" rel="noopener noreferrer">
+            <Button>{specialText}</Button>
           </a>
         </Details>
         <Thumbnail>
