@@ -11,7 +11,7 @@ export default () => (
     initialValues={{
       name: '',
       email: '',
-      message: '',
+      mobile: '',
       recaptcha: '',
       success: false,
     }}
@@ -20,21 +20,22 @@ export default () => (
       email: Yup.string()
         .email('Invalid email')
         .required('Email field is required'),
-      message: Yup.string().required('Message field is required'),
+      mobile: Yup.string().required('Mobile field is required'),
       recaptcha: Yup.string().required('Robots are not welcome yet!'),
     })}
-    onSubmit={async ({ name, email, message }, { setSubmitting, resetForm, setFieldValue }) => {
+    onSubmit={async ({ name, email, mobile }, { setSubmitting, resetForm, setFieldValue }) => {
+      console.log('submitting');
       try {
         await axios({
           method: 'POST',
-          url: `${process.env.GATSBY_PORTFOLIO_FORMIK_ENDPOINT}`,
+          url: 'https://api.formium.io/submit/5f40070bb4ec8d0001c46ce5/aol-requests',
           headers: {
             'Content-Type': 'application/json',
           },
           data: JSON.stringify({
             name,
             email,
-            message,
+            mobile,
           }),
         });
         setSubmitting(false);
@@ -76,6 +77,19 @@ export default () => (
         </InputField>
         <InputField>
           <Input
+            id="mobile"
+            aria-label="mobile"
+            component="input"
+            as={FastField}
+            type="number"
+            name="mobile"
+            placeholder="Mobile Number"
+            error={touched.mobile && errors.mobile}
+          />
+          <ErrorMessage component={Error} name="mobile" />
+        </InputField>
+        {/* <InputField>
+          <Input
             as={FastField}
             component="textarea"
             aria-label="message"
@@ -87,12 +101,12 @@ export default () => (
             error={touched.message && errors.message}
           />
           <ErrorMessage component={Error} name="message" />
-        </InputField>
+        </InputField> */}
         {values.name && values.email && values.message && (
           <InputField>
             <FastField
               component={Recaptcha}
-              sitekey={process.env.GATSBY_PORTFOLIO_RECAPTCHA_KEY}
+              sitekey="6LfC7sEZAAAAALmsKUewZS9J4l4LL9pghqbSs0Ec"
               name="recaptcha"
               onChange={value => setFieldValue('recaptcha', value)}
             />
@@ -102,14 +116,16 @@ export default () => (
         {values.success && (
           <InputField>
             <Center>
-              <h4>Your message has been successfully sent, I will get back to you ASAP!</h4>
+              <h4>Your message has been successfully sent, we will get back to you ASAP!</h4>
             </Center>
           </InputField>
         )}
         <Center>
-          <Button secondary type="submit" disabled={isSubmitting}>
-            Submit
-          </Button>
+          <div>
+            <Button secondary type="submit" disabled={isSubmitting}>
+              Submit
+            </Button>
+          </div>
         </Center>
       </Form>
     )}

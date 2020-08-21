@@ -22,7 +22,7 @@ export default () => {
       window.localStorage.setItem('theme', localTheme);
       setTheme(localTheme);
     } else if (prefersDarkMode) {
-      setTheme('dark');
+      setTheme('light');
     } else {
       setTheme('light');
     }
